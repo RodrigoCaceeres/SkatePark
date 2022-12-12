@@ -1,0 +1,51 @@
+<table class="table table-dark">
+  <thead>
+    <tr>
+      <th class="text-center" scope="col">ID</th>
+      <th class="text-center" scope="col">Foto</th>
+      <th class="text-center" scope="col">Nombre</th>
+      <th class="text-center" scope="col">Años de experiencia</th>
+      <th class="text-center" scope="col">Especialidad</th>
+      <th class="text-center" scope="col">Estado</th>
+      <th class="text-center" scope="col">Aprobar</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    {{#each skaters}}
+    <tr>
+      <th class="text-center" scope="row">{{this.id}}</th>      
+       <td><img class="container" style='width:150px; height:100px' src="/img/{{this.foto}}"></td>      
+      <td class="text-center">{{this.nombre}}</td>
+      <td class="text-center">{{this.anos_experiencia}}</td>
+      <td class="text-center">{{this.especialidad}}</td>
+      {{#if this.estado}}
+      <td class="text-center font-weight-bold">Aprobado</td>
+      {{else}}
+      <td class="text-center font-weight-bold">No Aprobado</td>
+      {{/if}}
+      <td><input class="container" type="checkbox" {{#if this.estado}} checked {{/if}}
+          onclick="changeStatus({{this.id}}, this)" /></td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+<script>
+
+  const changeStatus = async (id, elem) => {
+    const auth = elem.checked
+    try {
+      await axios.put("/skaters", {
+        id,
+        auth
+      })
+      alert(auth ? "Usuario Habilitado" : "Usuario Deshabilitado")     
+      window.location.reload();
+    }
+    catch ({ response }) {
+      const { data } = response;
+      const { error } = data;
+      alert(error);
+    }
+  }
+</script>

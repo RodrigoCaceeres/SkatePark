@@ -1,0 +1,29 @@
+ <table class="table table-dark">
+        <thead>
+          <tr>
+            <th class="text-center" scope="col">ID</th>
+            <th class="text-center" scope="col">Foto</th>
+            <th class="text-center" scope="col">Nombre</th>
+            <th class="text-center" scope="col">Años de experiencia</th>
+            <th class="text-center" scope="col">Especialidad</th>
+            <th class="text-center" scope="col">Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          {{#each skaters}}
+          <tr>
+            <th class="text-center" scope="row">{{this.id}}</th>
+            <td><img class="container" style='width:150px; height:100px' src="/img/{{this.foto}}"></td>
+            <td class="text-center">{{this.nombre}}</td>
+            <td class="text-center">{{this.anos_experiencia}}</td>
+            <td class="text-center">{{this.especialidad}}</td>          
+            {{#if this.estado}}
+            <td class=" text-center font-weight-bold"><a style="color:rgb(175, 207, 235)" href="/verificarAdmin">Aprobado</a></td>
+            {{else}}
+            <td class=" text-center font-weight-bold"><a href="/verificarAdmin">En revisión</a></td>
+            {{/if}}
+          </tr>         
+          {{/each}} 
+        </tbody>
+      </table>

@@ -1,0 +1,38 @@
+<body class="container">
+    <h1>Skate Park</h1>
+
+    <div class="py-5">
+        <h2>Iniciar Sesión Administración</h2>
+        <hr class="w-50" />
+
+        <form id="formulario">
+            <div class="form-group">                
+                <div class="form-group">
+                    <label>Password</label>
+                    <input value="Ingrese Contraseña de administrador" class="form-control w-50 m-auto" id="passwordAdmin"/>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-success mb-3" onclick="verificacionAdmin()">Ingresar</button>            
+        </form>
+    </div>
+</body>
+
+<script>
+  const verificacionAdmin =  () => {
+    formulario.addEventListener("submit", async (e) =>{
+    e.preventDefault()    
+    const pass =  document.getElementById("passwordAdmin").value;
+    const payload = { pass };   
+     try {
+      const { data : token } = await axios.post("/verificarAdmin", payload);
+      alert("autentificación de administrador exitosa.");           
+      window.location.href = `/admin?token=${token}`;
+     } catch ({ response }) {
+      const { data } = response; 
+      const { error } = data;
+      alert(error);
+      }
+    })
+    }
+
+</script>
